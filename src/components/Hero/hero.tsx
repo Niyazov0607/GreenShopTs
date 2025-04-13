@@ -76,7 +76,7 @@ const Hero: React.FC = () => {
                                 <p className="mt-6 max-md:mt-2 max-sm:mt-0 max-md:pr-3 max-lg:pr-5 font-bold max-lg:text-sm max-md:font-light  max-sm:text-[10px] max-md:leading-4 leading-5 text-[#727272] max-md:w-full xl:max-w-[60%]">
                                     {slide.description}
                                 </p>
-                                <button className="transi mt-6 px-6 py-2 max-sm:py-0.5 max-sm:text-[8px] max-md:mt-2 max-w-40 max-md:max-w-32 max-md:px-2 max-sm:max-w-20 cursor-pointer max-md:text-sm text-base font-semibold uppercase bg-[#46A358] hover:bg-[#46A358]/70 text-white rounded-md transition">
+                                <button className="transition mt-6 px-6 py-2 max-sm:py-0.5 max-sm:text-[8px] max-md:mt-2 max-w-40 max-md:max-w-32 max-md:px-2 max-sm:max-w-20 cursor-pointer max-md:text-sm text-base font-semibold uppercase bg-[#46A358] hover:bg-[#46A358]/70 text-white rounded-md transition">
                                     {slide.btn}
                                 </button>
                             </div>
