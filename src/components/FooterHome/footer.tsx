@@ -14,6 +14,7 @@ const FooterHome = () => {
                                 We are an online plant shop offering a wide
                                 range of cheap and trendy plants.
                             </p>
+                            <p>lorem1000</p>
                         </div>
                     </div>
                 </div>

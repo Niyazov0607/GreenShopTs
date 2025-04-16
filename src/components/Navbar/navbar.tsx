@@ -27,7 +27,9 @@ const Navbar = () => {
             <div className="flex items-center gap-4">
                 <CiSearch size={24} />
                 <IoIosNotificationsOutline size={24} />
-                <IoCartOutline size={24} />
+                <NavLink to="/pages/Cart">
+                    <IoCartOutline size={24} />
+                </NavLink>
 
                 <Auth />
             </div>

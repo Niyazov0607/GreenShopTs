@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Heart, LogOut, MapPin, ShoppingBag, Truck, User } from "lucide-react";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { Modal } from "antd";
 
 export default function Profile() {
