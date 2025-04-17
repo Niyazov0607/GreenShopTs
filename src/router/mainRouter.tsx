@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Routes } from "react-router";
 import HomePage from "../pages/HomePage/homePage";
 import NotFound from "../components/NotFounded";
@@ -10,6 +9,8 @@ import MyProduts from "../pages/Profile/MyProducts/myProduts";
 import Address from "../pages/Profile/Address/address";
 import Wishlist from "../pages/Profile/Wishlist/wishlist";
 import Cart from "../pages/Cart/cart";
+import Blog from "../pages/Blog/blog";
+import Checkout from "../pages/Checkout/checkout";
 
 const MainRouter = () => {
     return (
@@ -24,7 +25,9 @@ const MainRouter = () => {
                     <Route element={<Address />} path="address" />
                     <Route element={<Wishlist />} path="wishlist" />
                 </Route>
+                <Route path="/blog" element={<Blog />} />
                 <Route path="/pages/cart" element={<Cart />} />
+                <Route path="/pages/checkout" element={<Checkout />} />
             </Routes>
             <FooterHome />
         </div>

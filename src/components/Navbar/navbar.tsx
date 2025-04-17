@@ -1,8 +1,7 @@
-import React from "react";
 import logoImg from "../../assets/logogreen.svg";
 import { CiSearch } from "react-icons/ci";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { IoCartOutline, IoLogInOutline } from "react-icons/io5";
+import { IoCartOutline } from "react-icons/io5";
 import { NavLink } from "react-router";
 import { Auth } from "../Auth/auth";
 

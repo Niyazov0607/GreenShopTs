@@ -1,4 +1,3 @@
-import React from "react";
 import Categories from "./Categories/categories";
 import HomeCards from "./HomeCards/homeCards";
 

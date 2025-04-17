@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Heart, LogOut, MapPin, ShoppingBag, Truck, User } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { Modal } from "antd";

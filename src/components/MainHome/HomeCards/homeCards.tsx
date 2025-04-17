@@ -2,10 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Link, useSearchParams } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { useWishlist } from "../../../Context/WishlistContext";
 import { useCart } from "../../../Context/CartContext";
 import { IoCartOutline } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
+import { useWishlist } from "../../../Context/wishlistContexts";
 
 const api = import.meta.env.VITE_API;
 
@@ -22,7 +22,7 @@ function HomeCards() {
     const category = searchParams.get("category") || "house-plants";
     const type = searchParams.get("type") || "all-plants";
     const { toggleWishlist, isInWishlist } = useWishlist();
-    const { toggleCart, isInCart, cart } = useCart();
+    const { toggleCart, cart } = useCart();
 
     const { data, isLoading, error } = useQuery({
         queryKey: ["flower", category, type],

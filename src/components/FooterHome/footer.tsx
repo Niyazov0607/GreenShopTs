@@ -1,4 +1,3 @@
-import React from "react";
 import footerImg1 from "../../assets/footerImg.svg";
 
 const FooterHome = () => {

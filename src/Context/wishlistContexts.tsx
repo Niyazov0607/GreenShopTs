@@ -1,4 +1,4 @@
-import React, {
+import {
     createContext,
     useContext,
     useState,
@@ -22,9 +22,8 @@ const WishlistContext = createContext<WishlistContextType | undefined>(
 export const WishlistProvider = ({ children }: { children: ReactNode }) => {
     const [wishlist, setWishlist] = useState<Flower[]>([]);
     const [api, contextHolder] = notification.useNotification();
-    const recentlyToggledRef = useRef<Set<string>>(new Set()); // Ref to track if notification is already triggered for the item
+    const recentlyToggledRef = useRef<Set<string>>(new Set());
 
-    // Load wishlist from localStorage on component mount
     useEffect(() => {
         const stored = localStorage.getItem("wishlist");
         if (stored) {
@@ -40,7 +39,6 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
         }
     }, []);
 
-    // Save wishlist to localStorage whenever wishlist changes
     useEffect(() => {
         if (wishlist.length > 0) {
             localStorage.setItem("wishlist", JSON.stringify(wishlist));

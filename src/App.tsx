@@ -1,4 +1,3 @@
-import React from "react";
 import MainRouter from "./router/mainRouter";
 
 const App = () => {

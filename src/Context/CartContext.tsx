@@ -5,7 +5,7 @@ import React, {
     useEffect,
     ReactNode,
 } from "react";
-import { Flower } from "../Types/type"; // Ensure Flower includes `quantity`
+import { Flower } from "../Types/type";
 
 export type CartContextType = {
     cart: Flower[];

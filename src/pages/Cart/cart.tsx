@@ -2,6 +2,7 @@ import React from "react";
 import { useCart } from "../../Context/CartContext";
 import { Flower } from "../../Types/type";
 import { IoMdTrash } from "react-icons/io";
+import { NavLink } from "react-router";
 
 const Cart: React.FC = () => {
     const { cart, toggleCart, updateQuantity } = useCart();
@@ -26,20 +27,18 @@ const Cart: React.FC = () => {
 
     return (
         <div className="flex items-start m-auto justify-between w-[1290px]">
-            {/* Left - Product List */}
-            <div className="w-[782px]">
+            <div className="w-[900px]">
                 <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
 
                 {/* Headers */}
                 <div className="grid grid-cols-4 font-semibold mb-2">
                     <p>Product</p>
-                    <p className="text-center">Price</p>
+                    <p className="text-center ml-[50px]">Price</p>
                     <p className="text-center">Quantity</p>
                     <p className="text-center">Total</p>
                 </div>
                 <hr className="mb-4 h-[1px] bg-[#46A35880] border-0" />
 
-                {/* Cart Items */}
                 {cart.length === 0 ? (
                     <p className="text-gray-500">Your cart is empty.</p>
                 ) : (
@@ -47,10 +46,9 @@ const Cart: React.FC = () => {
                         {cart.map((item: Flower) => (
                             <div
                                 key={item._id}
-                                className="grid grid-cols-4 bg-gray-100 p-4 rounded-lg shadow-sm items-center"
+                                className="grid grid-cols-4 bg-gray-50 p-4 rounded-lg items-center relative "
                             >
-                                {/* Product Image + Name + Delete */}
-                                <div className="flex gap-4 relative">
+                                <div className="flex gap-4 items-center ml-[-10px]">
                                     <img
                                         src={item.main_image}
                                         alt={item.title}
@@ -60,52 +58,50 @@ const Cart: React.FC = () => {
                                         <h2 className="text-md font-semibold">
                                             {item.title}
                                         </h2>
-                                        <p className="text-green-600 font-bold mt-1">
-                                            ${item.price}
-                                        </p>
-                                        <p className="text-sm text-gray-400 line-through">
-                                            ${item.discount_price}
-                                        </p>
+                                        <span className="text-[15px] text-gray-600">
+                                            SKU:{item._id}
+                                        </span>
                                     </div>
-                                    <button
-                                        onClick={() => toggleCart(item)}
-                                        className="absolute bottom-0 right-0 text-red-500 hover:text-red-700"
-                                    >
-                                        <IoMdTrash size={20} />
-                                    </button>
                                 </div>
 
-                                {/* Price */}
-                                <div className="text-center text-gray-700 font-semibold">
+                                <div className="text-center text-gray-700 font-semibold items-center ml-[60px]">
                                     ${item.price}
                                 </div>
 
-                                {/* Quantity */}
-                                <div className="flex items-center justify-center gap-2">
+                                <div className="flex items-center justify-center gap-2 ml-[50px]">
                                     <button
-                                        className="px-2 py-1 bg-gray-300 rounded"
+                                        className="px-3 py-1 rounded-full bg-[#46A358] text-white font-bold cursor-pointer"
                                         onClick={() => decreaseQuantity(item)}
                                     >
                                         -
                                     </button>
-                                    <span className="w-6 text-center">
+                                    <span className="w-6 text-center font-semibold">
                                         {item.quantity || 1}
                                     </span>
                                     <button
-                                        className="px-2 py-1 bg-gray-300 rounded"
+                                        className="px-3 py-1 rounded-full bg-[#46A358] text-white font-bold cursor-pointer"
                                         onClick={() => increaseQuantity(item)}
                                     >
                                         +
                                     </button>
                                 </div>
 
-                                {/* Total */}
-                                <div className="text-center text-gray-800 font-semibold">
+                                <div className="text-center text-gray-800 font-semibold ml-[60px]">
                                     $
                                     {(
                                         item.price * (item.quantity || 1)
                                     ).toFixed(2)}
                                 </div>
+
+                                <button
+                                    onClick={() => toggleCart(item)}
+                                    className="absolute right-2 group cursor-pointer"
+                                >
+                                    <span className="absolute -top-6 left-1/2 -translate-x-1/2 bg-black text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        Delete
+                                    </span>
+                                    <IoMdTrash size={20} />
+                                </button>
                             </div>
                         ))}
                     </div>
@@ -155,12 +151,14 @@ const Cart: React.FC = () => {
                 {/* Buttons */}
                 <div className="text-center mt-[20px]">
                     <button className="bg-[#46A358] py-[12px] px-[91px] rounded-[6px] text-white cursor-pointer">
-                        Proceed To Checkout
+                        <NavLink to="/pages/checkout">
+                            Proceed To Checkout
+                        </NavLink>
                     </button>
                 </div>
                 <div className="text-center mt-[10px]">
                     <button className="text-[#46A358] cursor-pointer">
-                        Continue Shopping
+                        <NavLink to="/">Continue Shopping</NavLink>
                     </button>
                 </div>
             </div>
