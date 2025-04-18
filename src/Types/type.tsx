@@ -4,5 +4,5 @@ export type Flower = {
     price: number;
     discount_price: number;
     main_image: string;
-    quantity?: number;
+    quantity: number;
 };

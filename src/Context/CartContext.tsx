@@ -12,6 +12,8 @@ export type CartContextType = {
     toggleCart: (flower: Flower) => void;
     updateQuantity: (id: string, quantity: number) => void;
     isInCart: (id: string) => boolean;
+    removeFromCart: (id: string) => void; // 👈 new function
+    clearCart: () => void;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -29,12 +31,18 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
     }, [cart]);
 
     const toggleCart = (flower: Flower) => {
-        const exists = cart.some((item) => item._id === flower._id);
-        if (exists) {
-            setCart((prev) => prev.filter((item) => item._id !== flower._id));
-        } else {
-            setCart((prev) => [...prev, { ...flower, quantity: 0 }]);
-        }
+        setCart((prev) => {
+            const exists = prev.find((item) => item._id === flower._id);
+            if (exists) {
+                return prev.map((item) =>
+                    item._id === flower._id
+                        ? { ...item, quantity: item.quantity + 1 }
+                        : item
+                );
+            } else {
+                return [...prev, { ...flower, quantity: 1 }];
+            }
+        });
     };
 
     const updateQuantity = (id: string, quantity: number) => {
@@ -47,9 +55,24 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
         return cart.some((item) => item._id === id);
     };
 
+    const removeFromCart = (id: string) => {
+        setCart((prev) => prev.filter((item) => item._id !== id));
+    };
+
+    const clearCart = () => {
+        setCart([]); // Clears the entire cart
+    };
+
     return (
         <CartContext.Provider
-            value={{ cart, toggleCart, updateQuantity, isInCart }}
+            value={{
+                cart,
+                toggleCart,
+                updateQuantity,
+                isInCart,
+                removeFromCart,
+                clearCart,
+            }}
         >
             {children}
         </CartContext.Provider>

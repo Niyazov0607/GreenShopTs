@@ -5,7 +5,8 @@ import { IoMdTrash } from "react-icons/io";
 import { NavLink } from "react-router";
 
 const Cart: React.FC = () => {
-    const { cart, toggleCart, updateQuantity } = useCart();
+    const { cart, updateQuantity } = useCart();
+    const { removeFromCart } = useCart();
 
     const increaseQuantity = (item: Flower): void => {
         updateQuantity(item._id, (item.quantity || 1) + 1);
@@ -23,7 +24,7 @@ const Cart: React.FC = () => {
     );
 
     const shipping = 16;
-    const total = subtotal + shipping;
+    const total = subtotal;
 
     return (
         <div className="flex items-start m-auto justify-between w-[1290px]">
@@ -94,7 +95,7 @@ const Cart: React.FC = () => {
                                 </div>
 
                                 <button
-                                    onClick={() => toggleCart(item)}
+                                    onClick={() => removeFromCart(item._id)}
                                     className="absolute right-2 group cursor-pointer"
                                 >
                                     <span className="absolute -top-6 left-1/2 -translate-x-1/2 bg-black text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">

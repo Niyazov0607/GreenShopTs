@@ -11,6 +11,8 @@ import Wishlist from "../pages/Profile/Wishlist/wishlist";
 import Cart from "../pages/Cart/cart";
 import Blog from "../pages/Blog/blog";
 import Checkout from "../pages/Checkout/checkout";
+import AboutCards from "@/pages/AboutCards/aboutCard";
+import Track from "@/pages/Track/track";
 
 const MainRouter = () => {
     return (
@@ -24,10 +26,12 @@ const MainRouter = () => {
                     <Route element={<MyProduts />} path="myProducts" />
                     <Route element={<Address />} path="address" />
                     <Route element={<Wishlist />} path="wishlist" />
+                    <Route element={<Track />} path="track" />
                 </Route>
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/pages/cart" element={<Cart />} />
                 <Route path="/pages/checkout" element={<Checkout />} />
+                <Route element={<AboutCards />} path="/pages/aboutCard/:id" />
             </Routes>
             <FooterHome />
         </div>

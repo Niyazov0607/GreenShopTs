@@ -22,7 +22,7 @@ function HomeCards() {
     const category = searchParams.get("category") || "house-plants";
     const type = searchParams.get("type") || "all-plants";
     const { toggleWishlist, isInWishlist } = useWishlist();
-    const { toggleCart, cart } = useCart();
+    const { toggleCart } = useCart();
 
     const { data, isLoading, error } = useQuery({
         queryKey: ["flower", category, type],
@@ -113,11 +113,6 @@ function HomeCards() {
                             main_image,
                         };
 
-                        const cartItem = cart.find(
-                            (item) => item._id === product._id
-                        );
-                        const quantity = cartItem?.quantity ?? 0;
-
                         return (
                             <div key={index}>
                                 <div className="group h-[300px] bg-[#f5f5f5] flex justify-center items-center relative">
@@ -130,17 +125,22 @@ function HomeCards() {
                                         alt="img"
                                     />
                                     <div className="absolute inset-x-auto hidden gap-4 bottom-2 group-hover:flex">
-                                        <div className="relative">
+                                        {/* <div className="relative">
                                             {quantity > 0 && (
                                                 <span className=" bg-green rounded-full w-[18px] h-[18px] flex justify-center items-center">
                                                     {quantity}
                                                 </span>
                                             )}
-                                        </div>
+                                        </div> */}
 
                                         <div
                                             className="bg-white w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]"
-                                            onClick={() => toggleCart(product)}
+                                            onClick={() =>
+                                                toggleCart({
+                                                    ...product,
+                                                    quantity: 1,
+                                                })
+                                            }
                                         >
                                             <IoCartOutline />
                                         </div>
@@ -148,7 +148,10 @@ function HomeCards() {
                                         <div
                                             className="bg-white w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]"
                                             onClick={() =>
-                                                toggleWishlist(product)
+                                                toggleWishlist({
+                                                    ...product,
+                                                    quantity: 1,
+                                                })
                                             }
                                         >
                                             {isInWishlist(_id) ? (
@@ -163,7 +166,7 @@ function HomeCards() {
 
                                         <div className="bg-white w-[35px] h-[35px] flex rounded-lg justify-center items-center text-[20px] cursor-pointer">
                                             <Link
-                                                to={`/pages/aboutCards/${_id}`}
+                                                to={`/pages/aboutCard/${_id}`}
                                             >
                                                 <CiSearch size={24} />
                                             </Link>
