@@ -24,7 +24,7 @@ const Cart: React.FC = () => {
     );
 
     const shipping = 16;
-    const total = subtotal;
+    const total = subtotal + shipping;
 
     return (
         <div className="flex items-start m-auto justify-between w-[1290px]">

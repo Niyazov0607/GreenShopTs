@@ -6,13 +6,14 @@ import React, {
     ReactNode,
 } from "react";
 import { Flower } from "../Types/type";
+import { notification } from "antd";
 
 export type CartContextType = {
     cart: Flower[];
     toggleCart: (flower: Flower) => void;
     updateQuantity: (id: string, quantity: number) => void;
     isInCart: (id: string) => boolean;
-    removeFromCart: (id: string) => void; // 👈 new function
+    removeFromCart: (id: string) => void;
     clearCart: () => void;
 };
 
@@ -34,20 +35,45 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
         setCart((prev) => {
             const exists = prev.find((item) => item._id === flower._id);
             if (exists) {
-                return prev.map((item) =>
+                const updatedCart = prev.map((item) =>
                     item._id === flower._id
                         ? { ...item, quantity: item.quantity + 1 }
                         : item
                 );
+                // Show notification when item is added to cart
+                notification.success({
+                    message: `${flower.title} Added to Cart`,
+                    description: `You have added ${flower.title} to your cart.`,
+                    placement: "topRight",
+                });
+                return updatedCart;
             } else {
-                return [...prev, { ...flower, quantity: 1 }];
+                const updatedCart = [...prev, { ...flower, quantity: 1 }];
+                // Show notification when new item is added to cart
+                notification.success({
+                    message: `${flower.title} Added to Cart`,
+                    description: `${flower.title} is now in your cart.`,
+                    placement: "topRight",
+                });
+                return updatedCart;
             }
         });
     };
 
     const updateQuantity = (id: string, quantity: number) => {
         setCart((prev) =>
-            prev.map((item) => (item._id === id ? { ...item, quantity } : item))
+            prev.map((item) => {
+                if (item._id === id) {
+                    // Show notification when quantity is updated
+                    notification.info({
+                        message: `${item.title} Quantity Updated`,
+                        description: `Quantity of ${item.title} has been updated to ${quantity}.`,
+                        placement: "topRight",
+                    });
+                    return { ...item, quantity };
+                }
+                return item;
+            })
         );
     };
 
@@ -56,11 +82,29 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
     };
 
     const removeFromCart = (id: string) => {
-        setCart((prev) => prev.filter((item) => item._id !== id));
+        const removedItem = cart.find((item) => item._id === id);
+        setCart((prev) => {
+            const updatedCart = prev.filter((item) => item._id !== id);
+            // Show notification when an item is removed
+            if (removedItem) {
+                notification.warning({
+                    message: `${removedItem.title} Removed from Cart`,
+                    description: `${removedItem.title} has been removed from your cart.`,
+                    placement: "topRight",
+                });
+            }
+            return updatedCart;
+        });
     };
 
     const clearCart = () => {
         setCart([]); // Clears the entire cart
+        // Show notification when the cart is cleared
+        notification.info({
+            message: "Cart Cleared",
+            description: "Your cart has been cleared.",
+            placement: "topRight",
+        });
     };
 
     return (

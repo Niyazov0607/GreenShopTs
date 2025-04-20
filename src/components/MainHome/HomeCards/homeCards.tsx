@@ -6,6 +6,7 @@ import { useCart } from "../../../Context/CartContext";
 import { IoCartOutline } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { useWishlist } from "../../../Context/wishlistContexts";
+import { notification, Button } from "antd";
 
 const api = import.meta.env.VITE_API;
 
@@ -32,6 +33,17 @@ function HomeCards() {
     const updateType = (newType: string) => {
         searchParams.set("type", newType);
         setSearchParams(searchParams);
+    };
+
+    // Notification function for cart and wishlist
+    const openNotification = (type: "cart" | "wishlist", title: string) => {
+        notification.info({
+            message: `${title} Added to ${
+                type === "cart" ? "Cart" : "Wishlist"
+            }`,
+            description: `${title} has been successfully added to your ${type}.`,
+            placement: "topRight",
+        });
     };
 
     if (isLoading) {
@@ -125,34 +137,31 @@ function HomeCards() {
                                         alt="img"
                                     />
                                     <div className="absolute inset-x-auto hidden gap-4 bottom-2 group-hover:flex">
-                                        {/* <div className="relative">
-                                            {quantity > 0 && (
-                                                <span className=" bg-green rounded-full w-[18px] h-[18px] flex justify-center items-center">
-                                                    {quantity}
-                                                </span>
-                                            )}
-                                        </div> */}
-
                                         <div
                                             className="bg-white w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]"
-                                            onClick={() =>
+                                            onClick={() => {
                                                 toggleCart({
                                                     ...product,
                                                     quantity: 1,
-                                                })
-                                            }
+                                                });
+                                                openNotification("cart", title); // Show notification after adding to cart
+                                            }}
                                         >
                                             <IoCartOutline />
                                         </div>
 
                                         <div
                                             className="bg-white w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]"
-                                            onClick={() =>
+                                            onClick={() => {
                                                 toggleWishlist({
                                                     ...product,
                                                     quantity: 1,
-                                                })
-                                            }
+                                                });
+                                                openNotification(
+                                                    "wishlist",
+                                                    title
+                                                ); // Show notification after adding to wishlist
+                                            }}
                                         >
                                             {isInWishlist(_id) ? (
                                                 <FaHeart
