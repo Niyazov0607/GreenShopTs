@@ -6,7 +6,7 @@ import { useCart } from "../../../Context/CartContext";
 import { IoCartOutline } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { useWishlist } from "../../../Context/wishlistContexts";
-import { notification, Button } from "antd";
+import { notification } from "antd";
 
 const api = import.meta.env.VITE_API;
 
